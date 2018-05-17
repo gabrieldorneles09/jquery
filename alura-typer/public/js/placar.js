@@ -55,5 +55,40 @@ function mostraPlacar(){
 }
 
 function sincronizaPlacar(){
-    
+    var placar = [];
+    var linhas = $("tbody>tr");
+
+    linhas.each(function(){
+        var usuario = $(this).find("td:nth-child(1)").text();
+        console.log(usuario);
+        var palavras = $(this).find("td:nth-child(2)").text();
+        console.log(palavras);
+        var score = {
+            usuario: usuario,
+            pontos: palavras
+        };
+
+        placar.push(score);
+
+        let dados = {
+            placar: placar
+        }
+
+        $.post(baseUrl+"placar", dados, () => {
+            console.log("Placar sincronizado com sucesso");
+        });
+    });
+  
+}
+
+function atualizaPlacar(){
+    $.get(baseUrl+"placar", function(data){
+        $(data).each(function(){
+            var linha = novaLinha(this.usuario, this.pontos);
+
+            linha.find(".botao-remover").click(removeLinha);
+
+            $("tbody").append(linha);
+        });
+    });
 }
