@@ -3,6 +3,7 @@ $("#botao-frase").click(fraseAleatoria);
 $("#botao-frase-id").click(buscaFrase);
 
 var baseUrl = "http://localhost:3000/";
+//var baseUrl = "http://192.168.0.83/"
 
 function mostraErro(){
     $("#erro").show();
